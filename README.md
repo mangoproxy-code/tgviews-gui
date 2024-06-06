@@ -1,14 +1,15 @@
-# Telegram Auto Views Bot
+# Telegram Auto Views GUI
 
-This project is a Python-based GUI application to increase views on a Telegram post using proxies. The application allows users to input proxy credentials, the number of views, and the Telegram post link. It simulates views using the specified proxies.
+This project is a Python-based GUI application that automates the process of increasing views on a Telegram post. It utilizes proxy configurations to repeatedly open the specified Telegram post, aiming to increase the view count.
 
 ## Features
 
-- GUI for easy input of details
+- GUI for easy input of proxy configuration and Telegram post URL
 - Supports SOCKS5 proxies
-- Progress bar to show the progress of views
-- Log display for successful, failed views, and proxy errors
-- Clickable link to MangoProxy for easy proxy acquisition
+- Concurrent requests for faster view count increase
+- Progress bar to show the progress
+- Real-time log updates
+- Stop and save functionality
 
 ## Prerequisites
 
@@ -21,13 +22,13 @@ This project is a Python-based GUI application to increase views on a Telegram p
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/mangoproxy-code/tgviews-gui.git
+    cd tgviews-gui
     ```
 
 2. Install the required Python packages:
     ```sh
-    pip install -r requirements.txt
+    pip install aiohttp aiohttp_socks
     ```
 
 ## Usage
@@ -37,20 +38,17 @@ This project is a Python-based GUI application to increase views on a Telegram p
     python telegram_auto_views_gui.py
     ```
 
-2. Fill in the following fields in the GUI:
-    - **Channel**: The Telegram channel username.
-    - **Post Number**: The Telegram post number.
-    - **Proxy**: Proxy credentials in the format `user:password@host:port`.
-    - **Number of Views**: The number of views you want to generate.
-
-3. Click the "Start" button to begin the process.
-
-## Files
-
-- `telegram_auto_views_gui.py`: The main script to run the GUI application.
-- `requirements.txt`: List of required Python packages.
-- `.gitignore`: Git ignore file to exclude unnecessary files from the repository.
+2. Use the GUI to:
+    - Input your proxy configuration in the format `user:password@host:port`.
+    - Input the Telegram post URL.
+    - Click "Start" to begin the process.
+    - Click "Stop and Save" to stop the process and save the results.
+    - Check the log for real-time updates.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Author
+
+Alex Whynot
