@@ -7,6 +7,7 @@ from tkinter.ttk import Progressbar
 from threading import Thread
 import webbrowser
 import logging
+import time
 
 logging.basicConfig(level=logging.INFO)
 
@@ -78,6 +79,7 @@ class Telegram:
                     self.proxy_error += 1
             finally:
                 jar.clear()
+            await asyncio.sleep(2)  # Add a delay before retrying
 
     async def run_rotated_task(self, proxy, proxy_type):
         tasks = []
@@ -87,17 +89,7 @@ class Telegram:
         for task in asyncio.as_completed(tasks):
             await task
             self.update_log(self.sucsess_sent, self.failled_sent, self.proxy_error)
-
-    async def verify_proxy(self, proxy: str, proxy_type: str):
-        connector = ProxyConnector.from_url(f'socks5://{proxy}')
-        try:
-            async with aiohttp.ClientSession(connector=connector) as session:
-                async with session.get('https://api.my-ip.io/ip', timeout=aiohttp.ClientTimeout(total=10)) as response:
-                    if response.status == 200:
-                        return True
-        except Exception as e:
-            logging.error(f"Proxy verification failed for {proxy}: {e}")
-        return False
+            await asyncio.sleep(1)  # Add a delay between requests to avoid overwhelming the proxy
 
 class GUI:
     def __init__(self, root):
@@ -165,16 +157,6 @@ class GUI:
                 posts.add(int(r))
         return list(posts)
 
-    async def verify_and_start(self, channel, posts, proxy, views):
-        api = Telegram(channel, posts, views, self.update_log, self.update_progress)
-        if await api.verify_proxy(proxy, "socks5"):
-            logging.info(f"Proxy {proxy} verified successfully.")
-            self.progress['maximum'] = views * len(posts)
-            self.progress['value'] = 0
-            await api.run_rotated_task(proxy, "socks5")
-        else:
-            logging.error(f"Proxy {proxy} verification failed. Please check the proxy details.")
-
     def start(self):
         channel = self.channel_entry.get()
         post_input = self.posts_entry.get()
@@ -182,7 +164,11 @@ class GUI:
         proxy = self.proxy_entry.get()
         views = int(self.views_entry.get())
 
-        Thread(target=lambda: asyncio.run(self.verify_and_start(channel, posts, proxy, views))).start()
+        self.progress['maximum'] = views * len(posts)
+        self.progress['value'] = 0
+
+        api = Telegram(channel, posts, views, self.update_log, self.update_progress)
+        Thread(target=lambda: asyncio.run(api.run_rotated_task(proxy, "socks5"))).start()
 
 if __name__ == "__main__":
     root = Tk()
