@@ -65,6 +65,12 @@ This project is a Python-based GUI application that automates the process of inc
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## Support my project
+Any donations can lead to improvements and updates
+BTC donations:  ```sh
+    1BFt6AiGK22sC6QP7s7sYzfFyaEz5PPw1j
+    ```
+
 ## Author
 
 Alex Whynot
