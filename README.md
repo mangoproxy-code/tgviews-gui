@@ -39,9 +39,9 @@ This project is a Python-based GUI application to increase views on a Telegram p
 
 2. Fill in the following fields in the GUI:
     - **Channel**: The Telegram channel username.
-    - **Post Number**: The Telegram post number.
+    - **Post Number**: The Telegram post number(s). You can specify ranges (e.g., `1-10`) or individual posts (e.g., `4,5,6-10`).
     - **Proxy**: Proxy credentials in the format `user:password@host:port`.
-    - **Number of Views**: The number of views you want to generate.
+    - **Number of Views**: The number of views you want to generate for each post.
 
 3. Click the "Start" button to begin the process.
 
@@ -50,6 +50,15 @@ This project is a Python-based GUI application to increase views on a Telegram p
 - `telegram_auto_views_gui.py`: The main script to run the GUI application.
 - `requirements.txt`: List of required Python packages.
 - `.gitignore`: Git ignore file to exclude unnecessary files from the repository.
+
+## Changelog
+
+### v1.2.0
+- **Improved Post Number Input**: Support for ranges and individual post numbers (e.g., `1-10`, `4,5,6-10`).
+- **Number of Views per Post**: Each post now receives the specified number of views individually.
+- **Proxy Verification**: Added a verification step to check proxy validity before starting the main task.
+- **Detailed Logging**: Enhanced logging for better debugging and tracking of request attempts.
+- **Increased Timeout and Retry Mechanism**: Improved request handling with increased timeout and retry mechanism to reduce proxy errors.
 
 ## License
 
